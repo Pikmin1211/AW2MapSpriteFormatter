@@ -20,7 +20,10 @@ public class MapSprite{
 			sprite = ImageIO.read(imageFile);
 		} catch (IOException e) {return null;}
 
-		BufferedImage output = new BufferedImage(8,648,BufferedImage.TYPE_INT_RGB);
+		int[] palette = { 0xFFC8C8C8, 0xFFF8F8F8, 0xFFF89868, 0xFFF8D880, 0xFFC00000, 0xFF800010, 0xFFF8B878, 0xFFF85800, 0xFFF00008, 0xFF000000, 0xFFD88050, 0xFFC8B8A8, 0xFF908880, 0xFFA8D8E0, 0xFFF800F8, 0xFF887870 };
+		IndexColorModel cm = new IndexColorModel(8, palette.length, palette, 0, true, 0, DataBuffer.TYPE_BYTE);
+
+		BufferedImage output = new BufferedImage(8,648,BufferedImage.TYPE_BYTE_BINARY, cm);
 
 		int width = sprite.getWidth();
 		int tileWidth = width/8;
@@ -38,6 +41,8 @@ public class MapSprite{
 			BufferedImage spritePart = sprite.getSubimage((currXtile*tile),(currYtile*tile),tile,tile);
 			working.drawImage(spritePart,0,offset*tile,null);
 		}
+
+
 
 		return output;
 	}
